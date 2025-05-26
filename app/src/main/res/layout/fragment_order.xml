@@ -57,11 +57,11 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="3.8"
-                android:background="@drawable/round_rect"
+                android:background="@android:drawable/button_onoff_indicator_off"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:iconifiedByDefault="false"
-                android:queryHint="搜饮品" />
+                android:queryHint="去觅食" />
         </LinearLayout>
 
         <LinearLayout
@@ -101,15 +101,16 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:padding="6dp"
-                    android:text="🧡 灵感上新"
+                    android:text="季节限定"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/rec_right"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:textStyle="bold"/>
+                    tools:ignore="HardcodedText" />
 
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
