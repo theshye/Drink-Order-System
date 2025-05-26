@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Drink_order_system" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#7FCC96</item>
+        <item name="colorPrimaryDark">#9BCEAA</item>
+        <item name="colorAccent">#79BD6F</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>
