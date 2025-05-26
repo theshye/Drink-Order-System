@@ -9,86 +9,92 @@ public class Drinks {
 	private float price;
 	private String introduction;
 	private int ImageResId;
+	private String category; // 添加类别字段
 
 	static private ArrayList<Drinks> all_drinks = new ArrayList<>();//用于存储所有饮品对象
 
 	//该构造函数包含type这个属性，用于初始化包含类别小标题的饮品，即每个类别中的第一个饮品
-	Drinks(String name, String type, float price, String introduction, int ImageResId)
-	{
+	Drinks(String name, String type, float price, String introduction, int ImageResId, String category) {
 		this.number = all_drinks.size();
 		this.name = name;
 		this.type = type;
 		this.price = price;
 		this.introduction = introduction;
 		this.ImageResId = ImageResId;
+		this.category = category; // 初始化类别字段
 		all_drinks.add(this);//每项饮品在被初始化后即加入all_drinks列表
 	}
 
 	//该构造函数不包含type属性，用于初始化普通不包含小标题的饮品
-	Drinks(String name, float price, String introduction, int ImageResId)
-	{
+	Drinks(String name, float price, String introduction, int ImageResId, String category) {
 		this.number = all_drinks.size();
 		this.type = null; //type属性直接设为null，在与adapter的布局文件进行绑定时，即不会显示类别小标题
 		this.name = name;
 		this.price = price;
 		this.introduction = introduction;
 		this.ImageResId = ImageResId;
+		this.category = category; // 初始化类别字段
 		all_drinks.add(this);
 	}
 
-	Drinks(int i){
-		this.number = i-1;
-		Drinks temp = all_drinks.get(i-1);
+	Drinks(int i) {
+		this.number = i - 1;
+		Drinks temp = all_drinks.get(i - 1);
 		this.name = temp.name;
 		this.type = temp.type;
 		this.price = temp.price;
 		this.introduction = temp.introduction;
 		this.ImageResId = temp.ImageResId;
+		this.category = temp.category; // 初始化类别字段
 	}
 
-	public int get_number()
-	{
+	// 添加获取类别字段的方法
+	public String getCategory() {
+		return category;
+	}
+
+	// 其他已有方法保持不变
+	public int get_number() {
 		return number;
 	}
-	
-	public String get_name()
-	{
+
+	public String get_name() {
 		return name;
 	}
-	
-	public String get_type()
-	{
+
+	public String get_type() {
 		return type;
 	}
-	
-	public float get_price() { return price;}
-	
-	public String get_introduction()
-	{
+
+	public float get_price() {
+		return price;
+	}
+
+	public String get_introduction() {
 		return introduction;
 	}
 
-	public int getImageResId(){return ImageResId;}
+	public int getImageResId() {
+		return ImageResId;
+	}
 
-	public void set_name(String name)
-	{
+	public void set_name(String name) {
 		this.name = name;
 	}
-	
-	public void set_type(String type)
-	{
+
+	public void set_type(String type) {
 		this.type = type;
 	}
-	
-	public void set_price(float price)
-	{
+
+	public void set_price(float price) {
 		this.price = price;
 	}
-	
-	public void set_Introduction(String introduction)
-	{
+
+	public void set_Introduction(String introduction) {
 		this.introduction = introduction;
 	}
 
-	public void setImageResId(int id){this.ImageResId = id;}
+	public void setImageResId(int id) {
+		this.ImageResId = id;
+	}
 }
