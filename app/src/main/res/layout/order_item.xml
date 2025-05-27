@@ -5,6 +5,7 @@
     android:layout_marginHorizontal="15dp"
     android:orientation="vertical">
 
+    <!-- 原有的订单信息 -->
     <TextView
         android:id="@+id/textView_number"
         android:layout_width="wrap_content"
@@ -51,11 +52,17 @@
             android:textSize="16sp" />
     </LinearLayout>
 
+    <!-- 新增评星控件 -->
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="1" />
+
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="20sp"
         android:background="?android:attr/listDivider" />
-
-
 </LinearLayout>

@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ShopFragment extends Fragment {
     private RecyclerView bill_listView;
@@ -38,9 +40,11 @@ public class ShopFragment extends Fragment {
     private View view_buy;
     private View view;
     private String userName;
+
     public ShopFragment() {
         // Required empty public constructor
     }
+
     public static ShopFragment newInstance(String userName) {
         ShopFragment myFragment = new ShopFragment();
         Bundle args = new Bundle();
@@ -196,28 +200,29 @@ public class ShopFragment extends Fragment {
         builder.setCancelable(false);
         buyDialog = builder.create();
         view_buy.findViewById(R.id.button_quit).setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  buyDialog.dismiss();
-              }
-          }
+                                                                       @Override
+                                                                       public void onClick(View v) {
+                                                                           buyDialog.dismiss();
+                                                                       }
+                                                                   }
         );
         view_buy.findViewById(R.id.button_bought).setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   Account temp = new Account(userName, mContext);
-                   String takeAway = "0";
-                   if(CB_takeAway.isChecked())
-                   {
-                       takeAway = "1";
-                   }
-                   String cost = String.format("%.1f",drinkCost + serviceCost);
-                   temp.saveBill(takeAway, cost);
-                   Ordered_drinks.clearOrdered_array();
-                   refresh();
-                   buyDialog.dismiss();
-               }
-           }
+                                                                         @Override
+                                                                         public void onClick(View v) {
+                                                                             Account temp = new Account(userName, mContext);
+                                                                             String takeAway = "0";
+                                                                             if(CB_takeAway.isChecked())
+                                                                             {
+                                                                                 takeAway = "1";
+                                                                             }
+                                                                             String cost = String.format("%.1f",drinkCost + serviceCost);
+                                                                             String orderInfo = generateOrderNumber() + "," + getCurrentTime() + "," + takeAway + "," + cost + ",0"; // 新增评星初始化为 0
+                                                                             temp.saveBill(orderInfo);
+                                                                             Ordered_drinks.clearOrdered_array();
+                                                                             refresh();
+                                                                             buyDialog.dismiss();
+                                                                         }
+                                                                     }
         );
 
         BT_buy.setOnClickListener(new View.OnClickListener()
@@ -244,8 +249,6 @@ public class ShopFragment extends Fragment {
         });
         return view;
     }
-
-
 
     private void refresh() {
         OrderAdapter orderAdapter = new OrderAdapter(layoutInflater, Ordered_drinks.getOrdered_array());
@@ -276,5 +279,16 @@ public class ShopFragment extends Fragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         refresh();
+    }
+
+    private String generateOrderNumber() {
+        // 生成订单号的逻辑
+        return System.currentTimeMillis() + "";
+    }
+
+    private String getCurrentTime() {
+        // 获取当前时间的逻辑
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy年MM月dd日 HH：mm");
+        return sdf.format(new java.util.Date());
     }
 }

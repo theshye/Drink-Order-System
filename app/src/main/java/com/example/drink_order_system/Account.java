@@ -174,7 +174,7 @@ public class Account {
         return true;
     }
 
-    public void saveBill(String takeAway, String cost)
+    public void saveBill(String takeAway)
     {
         try {
             FileOutputStream fos = mContext.openFileOutput(username + "bill.txt", mContext.MODE_APPEND);
@@ -184,6 +184,7 @@ public class Account {
             //获取当前时间
             Date date = new Date(System.currentTimeMillis());
             String orderNumber = billDateFormat.format(date)+String.format("%05d", line);
+            String cost = new String();
             String info = orderNumber + "," + simpleDateFormat.format(date) + "," + takeAway + "," + cost + "\n";
             System.out.println(info);
             fos.write(info.getBytes(StandardCharsets.UTF_8));
