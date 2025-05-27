@@ -23,7 +23,7 @@ public class Right_adapter extends RecyclerView.Adapter {
 
     Right_adapter(LayoutInflater layoutInflater, ArrayList<Drinks> list, Context context) {
         this.mList = list;
-        mLayoutInflater = layoutInflater;
+        this.mLayoutInflater = layoutInflater;
         this.mContext = context;
         System.out.println("rightAdapter used");
     }
@@ -52,20 +52,25 @@ public class Right_adapter extends RecyclerView.Adapter {
         Drinks target = getItem(position);
         if (holder instanceof RightViewHolder) {
             ((RightViewHolder) holder).bindBean(target);
+
+            // 根据类别设置按钮文本
+            Button chooseButton = ((RightViewHolder) holder).chooseBt;
             if ("🎶 点歌".equals(target.get_type())) {
-                ((RightViewHolder) holder).chooseBt.setText("查找歌曲");
+                chooseButton.setText("查找歌曲");
             } else {
-                ((RightViewHolder) holder).chooseBt.setText("选规格");
+                chooseButton.setText("选规格");
             }
-            ((RightViewHolder) holder).chooseBt.setOnClickListener(new View.OnClickListener() {
+
+            // 设置点击事件
+            chooseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mListener != null) {
-                        mListener.onclick(v, holder.getAdapterPosition());
-                    }
                     if ("🎶 点歌".equals(target.get_type())) {
-                        // 弹出歌曲搜索对话框
+                        // 点歌项点击事件
                         showSongSearchDialog();
+                    } else if (mListener != null) {
+                        // 普通商品点击事件
+                        mListener.onclick(v, holder.getAdapterPosition());
                     }
                 }
             });

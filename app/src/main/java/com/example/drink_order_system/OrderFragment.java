@@ -276,7 +276,7 @@ public class OrderFragment extends Fragment {
                 "高品质打包盒，安全卫生", R.drawable.takeout_box, "打包盒"));
         // 点歌类别
         int songRequestIndex = drinks_array.size();
-        drinks_array.add(new Drinks("点歌", "🎶 店内点歌", 5f,
+        drinks_array.add(new Drinks("点歌", "🎶 点歌", 5f,
                 "在店内点一首喜欢的歌曲", R.drawable.song_request_icon, "点歌"));
 
         // 更新 LeftBean 列表顺序
