@@ -1,32 +1,38 @@
 package com.example.drink_order_system;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class Right_adapter extends RecyclerView.Adapter{
+public class Right_adapter extends RecyclerView.Adapter {
 
     private final ArrayList<Drinks> mList;
     private final LayoutInflater mLayoutInflater;
     private MyClickListener mListener;
-    Right_adapter(LayoutInflater layoutInflater, ArrayList<Drinks> list) {
+    private Context mContext;
+
+    Right_adapter(LayoutInflater layoutInflater, ArrayList<Drinks> list, Context context) {
         this.mList = list;
         mLayoutInflater = layoutInflater;
+        this.mContext = context;
         System.out.println("rightAdapter used");
     }
 
-    public void buttonSetOnClick(MyClickListener mListener)
-    {
-        this.mListener=mListener;
+    public void buttonSetOnClick(MyClickListener mListener) {
+        this.mListener = mListener;
     }
 
-    public interface MyClickListener{
+    public interface MyClickListener {
         public void onclick(View v, int position);
     }
 
@@ -46,12 +52,20 @@ public class Right_adapter extends RecyclerView.Adapter{
         Drinks target = getItem(position);
         if (holder instanceof RightViewHolder) {
             ((RightViewHolder) holder).bindBean(target);
+            if ("🎶 点歌".equals(target.get_type())) {
+                ((RightViewHolder) holder).chooseBt.setText("查找歌曲");
+            } else {
+                ((RightViewHolder) holder).chooseBt.setText("选规格");
+            }
             ((RightViewHolder) holder).chooseBt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(mListener!=null)
-                    {
+                    if (mListener != null) {
                         mListener.onclick(v, holder.getAdapterPosition());
+                    }
+                    if ("🎶 点歌".equals(target.get_type())) {
+                        // 弹出歌曲搜索对话框
+                        showSongSearchDialog();
                     }
                 }
             });
@@ -63,6 +77,24 @@ public class Right_adapter extends RecyclerView.Adapter{
     @Override
     public int getItemCount() {
         return mList.size();
+    }
+
+    private void showSongSearchDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        View view = mLayoutInflater.inflate(R.layout.dialogue_song_search, null);
+        builder.setView(view);
+
+        ImageButton searchButton = view.findViewById(R.id.button_search);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 弹出提示“系统暂无曲目”
+                Toast.makeText(mContext, "系统暂无曲目", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private class RightViewHolder extends RecyclerView.ViewHolder {
@@ -84,13 +116,10 @@ public class Right_adapter extends RecyclerView.Adapter{
         }
 
         void bindBean(final Drinks bean) {
-            drinkName.setText(bean.get_name()+"  #"+(bean.get_number()+1));
-            if(bean.get_type()!=null)
-            {
+            drinkName.setText(bean.get_name() + "  #" + (bean.get_number() + 1));
+            if (bean.get_type() != null) {
                 drinkType.setText(bean.get_type());
-            }
-            else
-            {
+            } else {
                 drinkType.setText(null);
             }
             drinkImg.setImageResource(bean.getImageResId());

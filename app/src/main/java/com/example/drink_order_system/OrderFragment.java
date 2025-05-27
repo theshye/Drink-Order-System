@@ -133,7 +133,7 @@ public class OrderFragment extends Fragment {
         initData();
         right_llM = new LinearLayoutManager(this.getActivity());
         right_listView.setLayoutManager(right_llM);
-        Right_adapter rightAdapter = new Right_adapter(inflater, drinks_array);
+        Right_adapter rightAdapter = new Right_adapter(inflater, drinks_array, this.getActivity());
         right_listView.setAdapter(rightAdapter);
 
         titles_array.get(0).setSelect(true);
@@ -274,6 +274,10 @@ public class OrderFragment extends Fragment {
         int takeoutBoxIndex = drinks_array.size();
         drinks_array.add(new Drinks("打包盒", "🥡 打包盒", 2f,
                 "高品质打包盒，安全卫生", R.drawable.takeout_box, "打包盒"));
+        // 点歌类别
+        int songRequestIndex = drinks_array.size();
+        drinks_array.add(new Drinks("点歌", "🎶 店内点歌", 5f,
+                "在店内点一首喜欢的歌曲", R.drawable.song_request_icon, "点歌"));
 
         // 更新 LeftBean 列表顺序
         titles_array.add(new LeftBean(seasonLimitedIndex, "✨ 季节限定"));
@@ -282,4 +286,5 @@ public class OrderFragment extends Fragment {
         titles_array.add(new LeftBean(milkTeaIndex, "\uD83C\uDF7C 牛乳茶"));
         titles_array.add(new LeftBean(freshFruitIndex, "\uD83C\uDF52 时令鲜果"));
         titles_array.add(new LeftBean(takeoutBoxIndex, "🥡 打包盒"));
+        titles_array.add(new LeftBean(songRequestIndex, "🎶 店内点歌"));
     }}
